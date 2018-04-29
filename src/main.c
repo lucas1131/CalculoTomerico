@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "gauss_seidel.h"
 
 void usage(char *progname){
@@ -18,22 +19,21 @@ void usage(char *progname){
 
 int main(int argc, char *argv[]){
 
-	FILE *input = NULL;
-	FILE *output = NULL;
+	FILE *input = stdin;
+	FILE *output = stdout;
 	int i, j;
 	int n = 0;
 	double **matrix = NULL;		// Matrix representing system equations
-	double *solution = NULL;	// System solution vector (right hand side)
+	double *rhs = NULL;			// System right hand side vector
 	double *res = NULL;			// result
 	double epsilon = 0;
 	int max_iterations = 0;
 
-	// Get input from stdin
-	if(argc == 1) input = stdin;
-	else if(argc == 2){
+	// if(argc == 1) Get input from stdin
+	if(argc == 2){
 		
 		// Get input from file argument
-		input = fopen(argv[2], "r");
+		input = fopen(argv[1], "r");
 		
 		// Supress messages asking for input if a file was given as argument
 		output = fopen("/dev/null", "w");
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]){
 		// No /dev/null found or some other error, just print the messages :(
 		if(!output) output = stdout;
 
-	} else {
+	} else if(argc > 2){
 		printf("Unknown options.\n");
 		usage(argv[0]);
 		exit(1);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
 	fscanf(input, "%d", &n);
 
 	matrix = (double **) malloc(sizeof(double *)*n);
-	solution = (double *) malloc(sizeof(double)*n);
+	rhs = (double *) malloc(sizeof(double)*n);
 
 	fprintf(output, "System matrix: ");
 	for(i = 0; i < n; i++){
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]){
 
 	fprintf(output, "Solution vector: ");
 	for(i = 0; i < n; i++)
-		fscanf(input, "%lf", &solution[i]);
+		fscanf(input, "%lf", &rhs[i]);
 
 	fprintf(output, "Epsilon: ");
 	fscanf(input, "%lf", &epsilon);
@@ -79,8 +79,13 @@ int main(int argc, char *argv[]){
 	fscanf(input, "%d", &max_iterations);
 
 	// Call method
+	res = SolveGaussSeidel(matrix, rhs, n, epsilon, max_iterations);
 
 	// Print result
+	printf("Result = (");
+	for(i = 0; i < n-1; i++)
+		printf("%lf, ", res[i]);
+	printf("%lf)\n", res[i]);
 
 	// Free memory and close streams
 	if(argc == 2){
@@ -91,7 +96,7 @@ int main(int argc, char *argv[]){
 	for(i = 0; i < n; i++)
 		free(matrix[i]);
 	free(matrix);
-	free(solution);
+	free(rhs);
 	if(res) free(res);
 
 	return 0;
