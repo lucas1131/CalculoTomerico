@@ -1,0 +1,92 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[top=2.5cm,bottom=2cm,left=2cm,right=2cm]{geometry} 
+\usepackage[brazil]{babel}
+\usepackage{blindtext}
+\usepackage{ragged2e}
+\usepackage{soul}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\setlength\parindent{24pt}
+
+%capa
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace} % espaçamento
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newcommand{\university}{Universidade de São Paulo - ICMC}
+\newcommand{\discipline}{SME0104 - Cálculo Numérico}
+\newcommand{\data}{$1^o$ semestre / 2018}
+\newcommand{\teacher}{Prof. Murilo Francisco Tomé}
+\newcommand{\PAE}{PAEs: Gabriel Spadon de Souza, Paulo Henrique de Oliveira}
+\newcommand{\specification}{Método de Gauss-Seidel para aproximação de soluções de sistemas não lineares}
+
+\newcommand{\members}{
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{ll}
+            \large\textsc{Letícia Rina Sakurai} & \large\textsc{Nº USP: 9278010} \\
+            \large\textsc{Lucas Alexandre Soares} & \large\textsc{Nº USP: 9293265} \\
+        \end{tabular}
+    \end{table}{}
+}
+
+\newcommand{\capaicmc}{
+    \begin{center}
+        \begin{center}
+            \begin{table}[!ht]
+                \centering 
+                \begin{tabular}{cl}
+                    \multirow{4}{*}{\includegraphics[height=1.8cm,keepaspectratio=true]{logo-header.png}}
+                    & \university\\
+                    %& \course\\ 
+                    & \discipline\\
+                    & \teacher\\
+                    %& \PAE\\
+                \end{tabular}
+            \end{table}
+        \end{center}
+        
+        \vfill
+        
+        {\huge \specification}
+        
+        \vfill
+        
+        \doublespacing
+        \large\textsc{\members}
+        
+        \vfill
+        
+        \large São Carlos - SP \\
+        \large \today \\
+
+        \end{center}
+        
+        \newpage
+}
+
+\begin{document}
+
+% Capa
+\capaicmc
+
+\tableofcontents
+\newpage
+
+% Seta espaçamento entre linhas
+\singlespacing
+
+% começa finalmente 
+% Aqui explica como este documento está estruturado e por que ele está assim, qual o motivo de usarmos este doc
+\section{sessao 1}
+    \blindtext    
+
+\end{document}
+
