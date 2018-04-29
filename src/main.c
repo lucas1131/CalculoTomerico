@@ -4,7 +4,7 @@
  * Lucas Alexandre Soares	9293265
  * Letícia Rina Sakurai		9278010
  *
- * Método de Gauss-Siedel para solução de sistemas
+ * Método de Gauss-Seidel para solução de sistemas não lineares
  * Arquivo principal do programa
  */
 
@@ -23,7 +23,8 @@ int main(int argc, char *argv[]){
 	int i, j;
 	int n = 0;
 	double **matrix = NULL;		// Matrix representing system equations
-	double *solution = NULL;	// System solution vector
+	double *solution = NULL;	// System solution vector (right hand side)
+	double *res = NULL;			// result
 	double epsilon = 0;
 	int max_iterations = 0;
 
@@ -50,7 +51,6 @@ int main(int argc, char *argv[]){
 		usage(argv[0]);
 		exit(1);
 	}
-
 
 	// Get and process input
 	fprintf(output, "Matrix order: ");
@@ -92,6 +92,7 @@ int main(int argc, char *argv[]){
 		free(matrix[i]);
 	free(matrix);
 	free(solution);
+	if(res) free(res);
 
 	return 0;
 }
