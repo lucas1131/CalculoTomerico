@@ -18,8 +18,8 @@ void usage(char *progname){
 
 int main(int argc, char *argv[]){
 
-	File *input = NULL;
-	File *output = NULL;
+	FILE *input = NULL;
+	FILE *output = NULL;
 	int i, j;
 	int n = 0;
 	double **matrix = NULL;		// Matrix representing system equations
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]){
 		
 		if(!input){
 			fprintf(stderr, "Error: file not found.\n");
-			exit(1).
+			exit(1);
 		}
 
 		// No /dev/null found or some other error, just print the messages :(

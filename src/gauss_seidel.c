@@ -8,7 +8,9 @@
  * Arquivo de implementação do método
  */
 
+#include <stdlib.h>
 #include <math.h>
+
 #include "gauss_seidel.h"
 
 double *SolveGaussSeidel(double **mat, double *solution, int n, 
@@ -20,10 +22,10 @@ double *SolveGaussSeidel(double **mat, double *solution, int n,
 	for(iter = 0; iter < max_iterations; iter++){
 		
 		// Compute iteration
-		
+
 
 		// Acceptable error
-		if(InfinityNorm(res) < epsilon) break;
+		if(InfinityNorm(res, n) < epsilon) break;
 	}
 
 	return res;
