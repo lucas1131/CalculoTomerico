@@ -12,7 +12,7 @@
 #define _GAUSS_SEIDEL_H_
 
 double *SolveGaussSeidel(double **mat, double *solution, int n, 
-						double epsilon, int max_iterations);
+						double epsilon, int max_iterations, double *error);
 double InfinityNorm(double *v, int n);
 
 #endif

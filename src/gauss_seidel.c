@@ -16,37 +16,45 @@
 #include "gauss_seidel.h"
 
 double *SolveGaussSeidel(double **mat, double *rhs, int n, 
-						double epsilon, int max_iterations){
+						double epsilon, int max_iterations, double *error){
 
 	int iter, i, j;
-	double sum1, sum2;
+	double _error = 0;
+	double sum;
 	double *res = (double *) calloc(sizeof(double), n); 
 	double *prev = (double *) calloc(sizeof(double), n); // X(0) assumed to be 0
+	
+	/* Norm variables */
+	double max;
+	double aux;
+	double *norm = (double *) malloc(sizeof(double)*n);
 
 	for(iter = 0; iter < max_iterations; iter++){
 		
 		// Compute iteration
+		max = 0;
 		for(i = 0; i < n; i++){
 
-			sum1 = 0;
-			for(j = 0; j < i; j++)
-				sum1 += mat[i][j]*res[j];
+			sum = 0;
 
-			sum2 = 0;
-			for(j = i+1; j < n; j++)
-				sum2 += mat[i][j]*prev[j];
+			for(j = 0; j < n; j++){
+				if(i != j) {
+					sum += mat[i][j]*prev[j];
+				}
+			}
 
-			res[i] = (rhs[i] - sum1 - sum2)/mat[i][i];
+			res[i] = (rhs[i] - sum)/mat[i][i];
+			
+			/* Calculate infinity norm here for performance */
+			norm[i] = res[i] - prev[i]; // For infinity norm calculation
+			aux = fabs(norm[i]);
+			max = (aux > max) ? aux : max;
 		}
 
-		// We can reutilize prev vector here to calculate ||X(k+1) - X(k)||inf
-		// to check for acceptable error
-		for(i = 0; i < n; i++)
-			prev[i] = res[i] - prev[i];
-
 		// Acceptable error
-		fprintf(stderr, "NORM: %lf\n", InfinityNorm(prev, n));
-		if(InfinityNorm(prev, n) < epsilon) {
+		// _error = InfinityNorm(norm, n);
+		_error = max;
+		if(_error < epsilon) {
 			printf("Acceptable error reached.\n");
 			break;
 		}
@@ -56,7 +64,12 @@ double *SolveGaussSeidel(double **mat, double *rhs, int n,
 	}
 	if(iter >= max_iterations) printf("Max iterations exceeded.\n");
 
+	// If user passed a value to error, return calculated error
+	if(error != NULL)
+		*error = _error;
+
 	free(prev);
+	free(norm);
 
 	return res;
 }

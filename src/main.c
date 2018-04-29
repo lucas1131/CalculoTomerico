@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "gauss_seidel.h"
 
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]){
 	double *rhs = NULL;			// System right hand side vector
 	double *res = NULL;			// result
 	double epsilon = 0;
+	double error;
 	int max_iterations = 0;
 
 	// if(argc == 1) Get input from stdin
@@ -79,13 +81,18 @@ int main(int argc, char *argv[]){
 	fscanf(input, "%d", &max_iterations);
 
 	// Call method
-	res = SolveGaussSeidel(matrix, rhs, n, epsilon, max_iterations);
+	clock_t t1 = clock();
+	res = SolveGaussSeidel(matrix, rhs, n, epsilon, max_iterations, &error);
+	clock_t t2 = clock();
 
 	// Print result
 	printf("Result = (");
 	for(i = 0; i < n-1; i++)
 		printf("%lf, ", res[i]);
 	printf("%lf)\n", res[i]);
+
+	printf("Result error: %.10lf.\n", error);
+	printf("Execution time: %lf.\n", (double) (t2-t1)/(CLOCKS_PER_SEC));
 
 	// Free memory and close streams
 	if(argc == 2){

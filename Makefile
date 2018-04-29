@@ -39,7 +39,7 @@ OBJ += $(foreach file, $(SRCPP), $(file:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o))
 # DEL_OBJ=$(filter-out %.o, $(OBJC))
 
 CC:=gcc
-CFLAGS:=-O3 -I./$(INCDIR) -fopenmp
+CFLAGS:=-O3 -I./$(INCDIR)
 
 USER_LIBS:=
 DEFAULT_LIBS:=-lm
