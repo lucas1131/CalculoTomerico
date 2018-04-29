@@ -4,7 +4,7 @@
  * Lucas Alexandre Soares	9293265
  * Letícia Rina Sakurai		9278010
  *
- * Método de Gauss-Seidel para solução de sistemas não lineares
+ * Método de Gauss-Seidel para solução de sistemas
  * Arquivo principal do programa
  */
 
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]){
 	fprintf(output, "Epsilon: ");
 	fscanf(input, "%lf", &epsilon);
 
-	fprintf(stderr, "Max iterations: ");
+	fprintf(output, "Max iterations: ");
 	fscanf(input, "%d", &max_iterations);
 
 	// Call method

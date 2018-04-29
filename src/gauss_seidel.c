@@ -8,6 +8,7 @@
  * Arquivo de implementação do método
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -32,15 +33,28 @@ double *SolveGaussSeidel(double **mat, double *rhs, int n,
 				sum1 += mat[i][j]*res[j];
 
 			sum2 = 0;
-			for(j = i; j < n; j++)
+			for(j = i+1; j < n; j++)
 				sum2 += mat[i][j]*prev[j];
 
 			res[i] = (rhs[i] - sum1 - sum2)/mat[i][i];
 		}
 
+		// We can reutilize prev vector here to calculate ||X(k+1) - X(k)||inf
+		// to check for acceptable error
+		for(i = 0; i < n; i++)
+			prev[i] = res[i] - prev[i];
+
 		// Acceptable error
-		if(InfinityNorm(res, n) < epsilon) break;
+		fprintf(stderr, "NORM: %lf\n", InfinityNorm(prev, n));
+		if(InfinityNorm(prev, n) < epsilon) {
+			printf("Acceptable error reached.\n");
+			break;
+		}
+
+		// Update previous values
+		memcpy(prev, res, sizeof(double)*n);
 	}
+	if(iter >= max_iterations) printf("Max iterations exceeded.\n");
 
 	free(prev);
 
