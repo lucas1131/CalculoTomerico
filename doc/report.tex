@@ -8,6 +8,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{indentfirst}
 \usepackage{mathtools}
+\usepackage{amsmath}
 \setlength\parindent{24pt}
 
 %capa
@@ -33,6 +34,7 @@
         \begin{tabular}{ll}
             \large\textsc{Letícia Rina Sakurai} & \large\textsc{Nº USP: 9278010} \\
             \large\textsc{Lucas Alexandre Soares} & \large\textsc{Nº USP: 9293265} \\
+            \large\textsc{Matheus Henrique Soares} & \large\textsc{Nº USP: 8066349} \\
         \end{tabular}
     \end{table}{}
 }
@@ -85,8 +87,51 @@
 
 % começa finalmente 
 % Aqui explica como este documento está estruturado e por que ele está assim, qual o motivo de usarmos este doc
-\section{sessao 1}
-    \blindtext    
+
+%Explicação do problema e do método numérico
+\section{Introdução}
+O objetivo do trabalho proposto é a implementação do Método Iterativo de Gauss-Seidel, também conhecido como o Método de Liebmann, para a resolução de sistemas lineares $Ax = b$.  
+\par O Método de Gauss-Seidel utiliza da decomposição LU, que divide a matriz A em uma matriz triangular inferior L e uma matriz traingular superior estrita U. A partir dessa decomposição podemos reescrever o sistema linear como $Lx = b - Ux$, ou na forma analítica: \[x^{(k+1)} = L^{-1}(b-Ux^{(k)})\]
+\par Podemos aproveitar a forma triangular de L e então calcular os elementos de $x^(k+1)$ sequencialmente utilizando a seguinte substituição, até chegarmos ao critério de parada, que pode ser um determinado valor de erro:
+
+\[x_{i}^{(k+1)} = \frac{1}{a_{ii}} \left ( b_{i} - \sum_{j=1}^{i-1} a_{ij}x_{j}^{(k+1)} - \sum_{j=1}^{n} a_{ij}x_{j}^{(k)}\right ),\>\>\>\> i = 1, 2, ... , n,\>\>\>\> k = 0, 1, 2, ...\]
+
+%Correção e detalhamento   
+\section{Resultados}
+O teste do programa elaborado para resolução do sistema linear foi feito com dois casos, sendo $n = 50, 100$, \(b_{i} = \sum_{j=1}^{n} a_{ij}\), $i=1,...,n$ e $itmax = 1000$.
+\par Para $n=50$, o resultado obtido foi:
+\par Para $n=100$, o resultado obtido foi:
+
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{llllll}
+        Result = (& 0.999317, & 0.998988, & 0.998715, & 0.998294, & 0.997934,
+        \\ & 0.997598, & 0.997234, & 0.996881, & 0.996539, & 0.996194,
+        \\ & 0.995855, & 0.995521, & 0.995192, & 0.994867, & 0.994549,
+        \\ & 0.994236, & 0.993929, & 0.993628, & 0.993334, & 0.993046,
+        \\ & 0.992766, & 0.992493, & 0.992228, & 0.991971, & 0.991721,
+        \\ & 0.991480, & 0.991248, & 0.991024, & 0.990809, & 0.990603,
+        \\ & 0.990406, & 0.990219, & 0.990041, & 0.989873, & 0.989715, 
+        \\ & 0.989567, & 0.989429, & 0.989301, & 0.989184, & 0.989077, 
+        \\ & 0.988980, & 0.988894, & 0.988819, & 0.988754, & 0.988700, 
+        \\ & 0.988657, & 0.988625, & 0.988603, & 0.988593, & 0.988593, 
+        \\ & 0.988603, & 0.988625, & 0.988657, & 0.988700, & 0.988753, 
+        \\ & 0.988817, & 0.988891, & 0.988976, & 0.989071, & 0.989176, 
+        \\ & 0.989291, & 0.989416, & 0.989551, & 0.989695, & 0.989849, 
+        \\ & 0.990012, & 0.990184, & 0.990365, & 0.990554, & 0.990753, 
+        \\ & 0.990959, & 0.991174, & 0.991397, & 0.991627, & 0.991865, 
+        \\ & 0.992110, & 0.992362, & 0.992621, & 0.992887, & 0.993158, 
+        \\ & 0.993435, & 0.993719, & 0.994007, & 0.994301, & 0.994599, 
+        \\ & 0.994902, & 0.995209, & 0.995520, & 0.995835, & 0.996153, 
+        \\ & 0.996474, & 0.996800, & 0.997122, & 0.997452, & 0.997792, 
+        \\ & 0.998104, & 0.998438, & 0.998825, & 0.999076, & 0.999378)
+    \end{tabular}
+\end{table}{}
+
+
+%Correção e adequação do código ao problema proposto
+\section{Implementação}
 
 \end{document}
 

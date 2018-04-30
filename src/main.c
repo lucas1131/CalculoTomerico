@@ -3,6 +3,7 @@
  * 
  * Lucas Alexandre Soares	9293265
  * Letícia Rina Sakurai		9278010
+ * Matheus Henrique Soares	8066349
  *
  * Método de Gauss-Seidel para solução de sistemas
  * Arquivo principal do programa
